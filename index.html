@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACCESS GRANTED: ARM REPORT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+body {
+  background: #0b0b0b;
+  color: #f2f2f2;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), inset 0 0 15px rgba(255, 0, 0, 0.2);
+  width: 80%;
+  max-width: 480px;
+  text-align: center;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+h1 {
+  color: red;
+  text-shadow: 0 0 12px red;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+input {
+  width: 80%;
+  padding: 12px;
+  margin-top: 1.2rem;
+  background: #111;
+  color: white;
+  border: 1px solid red;
+  border-radius: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #ff2e63;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #ff0000, #ff2e63);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff2e63;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ff2e63;
+}
+
+.matrix-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: black;
+  overflow: hidden;
+}
+
+.loading {
+  margin-top: 1.5rem;
+  font-family: 'Share Tech Mono', monospace;
+  color: #ff2e63;
+  animation: blink 1s infinite;
+  font-size: 0.95rem;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+.result {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.result span {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.result .passed {
+  background: rgba(0, 255, 0, 0.1);
+  color: #00ff88;
+  box-shadow: 0 0 12px #00ff88;
+}
+
+.result .failed {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff4a4a;
+  box-shadow: 0 0 12px #ff4a4a;
+}
+
+.certificate-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #111;
+  color: red;
+  padding: 8px 16px;
+  border: 1px solid red;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 0 10px red;
+  transition: all 0.3s;
+}
+
+.certificate-btn:hover {
+  background: red;
+  color: white;
+}
+
+.logo-animated {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-animated img {
+  height: 60px;
+  filter: drop-shadow(0 0 10px red);
+  animation: pulseLogo 2s infinite alternate;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pulseLogo {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.05); opacity: 0.85; }
+}
+
+footer {
+  margin-top: 2.5rem;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: center;
+  border-top: 1px solid #222;
+  padding-top: 1rem;
+  opacity: 0.7;
+}
+  #typing-text::after {
+  content: '|';
+  animation: blink 1s infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+  
+  .button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* agar responsive */
+  gap: 1rem; /* jarak antar tombol */
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="matrix-bg" id="matrix"></div>
+  <div class="container">
+    <div class="logo-animated">
+  <img src="logo.png" alt="ARM Logo">
+</div>
+
+<h1 id="typing-text"></h1>
+
+    <p style="color:#ccc; font-size: 0.6rem; margin-top: -0.5rem;">
+ⓘ Setiap awal pasti ada akhir, Selamat atas selesainya Operasi.
+</p>
+
+    <input type="text" id="codeInput" placeholder="Enter Access Code" />
+ <div class="button-container">
+  <button onclick="checkResult()">Cek Hasil</button>
+  <button onclick="window.open('point_0001.html', '_blank')">Raport</button>
+</div>
+   
+  <div class="loading" id="loading" style="display:none;">Menganalisis data...</div>
+    <div class="result" id="result"></div>
+    <footer>
+    © 2025 ARM AREA | Programmer : See U Again !!
+  </footer>
+
+  </div>
+
+  <script>
+    const data = [
+{ name: "BIANCA", status: "Lulus", code: "110100" },
+{ name: "SANU", status: "Lulus", code: "10010" },
+{ name: "ANDREA", status: "Lulus", code: "1000100" },
+{ name: "G", status: "Lulus", code: "101101" },
+{ name: "ADDAMS", status: "Lulus", code: "101111" },
+{ name: "LEONORA", status: "Lulus", code: "10011" },
+{ name: "CHESKA", status: "Lulus", code: "100001" },
+{ name: "CATHARINA", status: "Lulus", code: "100010" },
+{ name: "DYFAL", status: "Lulus", code: "100100" },
+{ name: "ZEPHYR ELANGGA", status: "Lulus", code: "1000110" },
+{ name: "VRISSYLA", status: "Lulus", code: "110001" },
+{ name: "HIMEKKA", status: "Lulus", code: "11011" },
+{ name: "KATALYCA", status: "Lulus", code: "111010" },
+{ name: "ALMADYRA", status: "Lulus", code: "101001" },
+{ name: "NOAH", status: "Lulus", code: "101110" },
+{ name: "JEOSIN", status: "Lulus", code: "101000" },
+{ name: "CSKYEE", status: "Lulus", code: "100110" },
+{ name: "LIZERIE", status: "Lulus", code: "1000001" },
+{ name: "GAVYN", status: "Lulus", code: "11110" },
+{ name: "KAZEN", status: "Lulus", code: "11010" },
+{ name: "MIYAZUU", status: "Lulus", code: "1000101" },
+{ name: "QUEEN", status: "Tidak Lulus", code: "101100" },
+{ name: "VELYN", status: "Tidak Lulus", code: "110000" },
+{ name: "MAPLE", status: "Tidak Lulus", code: "10110" },
+{ name: "EDREA", status: "Tidak Lulus", code: "10100" },
+{ name: "ALEX", status: "Tidak Lulus", code: "11000" },
+{ name: "ARASELY", status: "Tidak Lulus", code: "111111" },
+{ name: "GAMALIEL", status: "Tidak Lulus", code: "100000" },
+{ name: "JUDAEAS", status: "Tidak Lulus", code: "110111" },
+{ name: "NARRCIST", status: "Tidak Lulus", code: "101011" },
+{ name: "CLOUVENT", status: "Tidak Lulus", code: "11111" },
+{ name: "JINGXIAO", status: "Tidak Lulus", code: "10001" },
+{ name: "LUCIANO", status: "Tidak Lulus", code: "11001" },
+{ name: "RETTRO", status: "Tidak Lulus", code: "111110" },
+{ name: "ARUM", status: "Tidak Lulus", code: "10111" }
+    ];
+
+function checkResult() {
+  const code = document.getElementById('codeInput').value.trim();
+  const resultDiv = document.getElementById('result');
+  const loading = document.getElementById('loading');
+  resultDiv.innerHTML = '';
+
+  if (!isAccessAllowed()) {
+    resultDiv.innerHTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akses Dibatasi</title>
+  <style>
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .blink {
+      color: #999;
+      animation: blink 1.2s infinite;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .blink small {
+      display: block;
+      font-size: 0.85rem;
+      color: #ff8888;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <span class="blink">
+    ⛔ Akses Dibatasi, Cek kembali pada waktu yang telah ditentukan.
+    <br><small>( Senin, 23 Juni 2025, 19.00 WIB )</small>
+  </span>
+
+</body>
+</html>
+`;
+    return;
+  }
+
+  loading.style.display = 'block';
+
+  setTimeout(() => {
+    loading.style.display = 'none';
+    const matched = data.filter(d => d.code === code);
+
+    if (matched.length > 0) {
+      matched.forEach(person => {
+        const statusText = person.status === "Lulus"
+          ? `<span class='passed'>🎖️ ${person.name} : LOLOS OPERASI</span><br><a class='certificate-btn' href='cert/${person.name}.jpg' download>Unduh Sertifikat</a>`
+          : `<span class='failed'>⛔ ${person.name} : TIDAK LOLOS OPERASI</span>`;
+        
+        resultDiv.innerHTML += `<div style='margin-top:1rem;'>${statusText}</div>`;
+      });
+    } else {
+      resultDiv.innerHTML = `<span style='color:#999;'>Kode akses tidak ditemukan.</span>`;
+    }
+  }, 1500);
+}
+
+    // Optional: matrix effect
+    const canvas = document.createElement('canvas');
+    document.getElementById('matrix').appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+function isAccessAllowed() {
+  const now = new Date();
+
+  // Atur waktu mulai dan selesai (format: tahun, bulan (0-index), tanggal, jam, menit)
+  const start = new Date(2025, 5, 23, 19, 0);  // 23 Juni 2025, pukul 19:00
+  const end = new Date(2025, 5, 24, 19, 0);   // 24 Juni 2025, pukul 19:00
+
+  return now >= start && now <= end;
+}
+  const typingTarget = document.getElementById("typing-text");
+const text = "ACCESS GRANTED";
+let index = 0;
+
+function typeText() {
+  if (index < text.length) {
+    typingTarget.innerHTML += text.charAt(index);
+    index++;
+    setTimeout(typeText, 100); // kecepatan ketik, bisa disesuaikan
+  }
+}
+
+// Mulai ketik setelah delay loading
+setTimeout(typeText, 1000);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'red';
+      ctx.font = fontSize + "px Share Tech Mono";
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 40);
+  </script>
+</body>
+</html>

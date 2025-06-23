@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading | ARM AREA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b0b0b;
+      font-family: 'Share Tech Mono', monospace;
+      color: #ff2e63;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .loading-text {
+      font-size: 1.5rem;
+      text-align: center;
+      letter-spacing: 1px;
+      animation: flicker 2s infinite;
+    }
+
+    .dot {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .bar {
+      margin-top: 20px;
+      width: 80%;
+      height: 8px;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 8px red;
+    }
+
+    .bar-inner {
+      height: 100%;
+      background: linear-gradient(90deg, red, #ff2e63);
+      width: 0%;
+      animation: loadBar 4s ease-in-out forwards;
+    }
+
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-text">
+    <span>Initializing Protocol</span><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+  </div>
+  <div class="bar">
+    <div class="bar-inner"></div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "index.html"; // halaman utama
+    }, 4200);
+  </script>
+</body>
+</html>
